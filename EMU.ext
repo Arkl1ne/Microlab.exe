@@ -1,0 +1,226 @@
+rk*.filter="Tape&Rom files"
+vec.filter="Tape&Rom files"
+rom.filter="Tape&Rom files"
+r0m.filter="Tape&Rom files"
+bin.filter="Tape&Rom files"
+lvt.filter="Tape&Rom files"
+cpu.filter="AVSh files"
+mon.filter="AVSh files"
+sna.filter="ZX snapshot"
+sav.filter="Lvov snapshot"
+pt2.filter="Music files"
+pt3.filter="Music files"
+sqt.filter="Music files"
+stc.filter="Music files"
+stp.filter="Music files"
+zxs.filter="Music files"
+rmp.filter="Music files"
+bkd.filter="BK-001x disk"
+img.filter="BK-001x disk"
+
+rk : loader {
+  config="Radio-86RK"
+}
+
+rkr : loader {
+  config="Radio-86RK"
+}
+
+rk8 : loader {
+  config="Mikro-80"
+}
+
+rka : loader {
+  config="Apogee"
+}
+
+rkm : loader {
+  config="Mikrosha"
+}
+
+rko : loader {
+  config="Orion-128"
+  skip="*E6"
+  loadmem="mem2"
+  mode=1
+}
+
+ori : loader {
+  config="Orion-128"
+  skip="*0D0A"
+  loadmem="mem2"
+  loadaddr=0
+  mode=1
+}
+
+rkp : loader {
+  config="Partner"
+}
+
+rks : loader {
+  config="Specialist"
+  skip="D9D9D9*E6"
+  loadaddr=lowendian
+}
+
+rku : loader {
+  config="UT88"
+}
+
+vec : loader {
+  config="Vector06c"
+  loadaddr=100
+  cmd[0].init="ramdisk:000000000000000000000000"
+  cmd[1].poke="0000:C30001"
+  cmd[2].poke="0038:FBC9"
+}
+
+rom : loader {
+  config="Vector06c"
+  loadaddr=100
+  cmd[0].init="ramdisk:000000000000000000000000"
+  cmd[1].poke="0000:C30001"
+  cmd[2].poke="0038:FBC9"
+}
+
+r0m : loader {
+  config="Vector06c"
+  loadaddr=0
+  cmd[0].init="ramdisk:000000000000000000000000"
+}
+
+mon : loader {
+  config="SpecialistMX"
+  loadaddr=name(3)
+  cmd[0].delay=1000
+  cmd[0].poke="FFF8:70"
+  cmd[1].start=now
+}
+
+cpu : loader {
+  config="SpecialistMX"
+  cmd[0].delay=1000
+  cmd[0].poke="FFF8:70"
+  cmd[1].start=now
+  mode=2
+}
+
+bin : loader {
+  config="BK-0010"
+  cmd[0].poke="100:C6150002F709587FC115D000D1150300110A110AC0151000D1952000037EC115D0001E887F00BEFF"
+  cmd[1].start=100
+  mode=5
+}
+
+sna : loader {
+  config="ZX Spectrum 128"
+  mode=4
+}
+
+lvt[0] : loader {
+  id="9:D0"
+  config="Lvov"
+  cmd[0].delay=1000
+  cmd[0].keymacro="BLOAD{lshift-on}22{lshift-off},R{enter}"
+  mode=5
+}
+
+lvt[1] : loader {
+  id="9:D3"
+  config="Lvov"
+  cmd[0].delay=1000
+  cmd[0].keymacro="CLOAD{lshift-on}22{lshift-off}{enter}"
+  mode=5
+}
+
+lvt[2] : loader {
+  id="9:EA"
+  config="Lvov"
+  cmd[0].delay=1000
+  cmd[0].keymacro="LOAD{lshift-on}22{lshift-off}{enter}"
+  mode=5
+}
+
+sav : loader {
+  id="0:4C564F562F44554D502F322E302F48"
+  config="Lvov"
+  cmd[0].poke="4000:file[10011-14010]"
+  cmd[1].out="02:02"
+  cmd[2].poke="0:file[0011-10010]"
+  cmd[3].out="00:file[140D1-140D3]"
+  cmd[4].out="10:file[140E1-140E3]"
+  cmd[5].regs="BCDEHLAF(SP)(PC):file[14111-1411C]"
+}
+
+pt2 : loader {
+  config="Vector06c-Z80"
+  loadaddr=0B15
+  cmd[0].init="ramdisk:000000000000000000000000"
+  cmd[1].load="Vector06c\PTxPlay.obj"
+  cmd[1].loadaddr=100
+  cmd[2].poke="0131:02"
+}
+
+pt3 : loader {
+  config="Vector06c-Z80"
+  loadaddr=0B15
+  cmd[0].init="ramdisk:000000000000000000000000"
+  cmd[1].load="Vector06c\PTxPlay.obj"
+  cmd[1].loadaddr=100
+}
+
+stp : loader {
+  config="Vector06c-Z80"
+  loadaddr=869
+  cmd[0].init="ramdisk:000000000000000000000000"
+  cmd[1].load="Vector06c\stp.obj"
+  cmd[1].loadaddr=100
+}
+
+sqt : loader {
+  config="Vector06c-Z80"
+  loadaddr=64E
+  cmd[0].init="ramdisk:000000000000000000000000"
+  cmd[1].load="Vector06c\sqt.obj"
+  cmd[1].loadaddr=100
+  cmd[2].poke="0000:CD0001FB76C30400"
+  cmd[3].poke="0038:CD0301FBC9"
+}
+
+stc : loader {
+  config="Vector06c"
+  loadaddr=1000
+  cmd[0].init="ramdisk:000000000000000000000000"
+  cmd[1].poke="0000:C380030000C9"
+  cmd[2].load="Vector06c\stmview.obj"
+  cmd[2].loadaddr=100
+}
+
+zxs : loader {
+  config="Vector06c"
+  loadaddr=1000
+  cmd[0].init="ramdisk:000000000000000000000000"
+  cmd[1].poke="0000:C380030000C9"
+  cmd[2].load="Vector06c\stmview.obj"
+  cmd[2].loadaddr=100
+}
+
+rmp : loader {
+  config="Vector06c"
+  loadaddr=1800
+  cmd[0].init="ramdisk:000000000000000000000000"
+  cmd[1].load="Vector06c\rmp.obj"
+  cmd[1].loadaddr=100
+}
+
+bkd : loader {
+  config="BK-0011m"
+  cmd[0].setfile="fdd.image[0].file"
+  mode=6
+}
+
+img : loader {
+  config="BK-0011m"
+  cmd[0].setfile="fdd.image[0].file"
+  mode=6
+}
